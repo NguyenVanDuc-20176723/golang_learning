@@ -33,18 +33,61 @@ func showStudents(students []Student) {
 		fmt.Println("Danh sach sinh vien rong.")
 	} else {
 		fmt.Printf("Co %d sinh vien.\n", total)
-
+		fmt.Println("------------------------------------------------")
+		fmt.Printf("%-3s | %-20s | %-4s | %-8s \n", "No", "Name", "Age", "MSSV")
+		fmt.Println("------------------------------------------------")
 		for idx, student := range students {
-			fmt.Println("Sinh vien thu", idx)
-			fmt.Printf("%30s | %2d | %8s ", student.name, student.age, student.mssv)
+			fmt.Printf("%-3d | %-20s | %-4d | %-8s \n", idx+1, student.name, student.age, student.mssv)
 		}
 	}
 
 }
 
+func menu() int {
+	var choice int
+	options := []string{
+		"Add students.",
+		"Update student.",
+		"Show list student.",
+		"Delete student.",
+		"Exit.",
+	}
+	fmt.Println("------------Menu-----------")
+	for idx, option := range options {
+		fmt.Printf("\t%d. %s\n", idx+1, option)
+	}
+	fmt.Println("----------------------------")
+	fmt.Println("Your choice: ")
+	fmt.Scan(&choice)
+	fmt.Println("----------------------------")
+	return choice
+}
+
 func main() {
 	var students []Student
-	students = append(students, fakeData())
 
-	fmt.Println(students)
+loop:
+	for true {
+		choice := menu()
+		switch choice {
+		case 1:
+			fmt.Println("--- Add students ---")
+			students = append(students, fakeData())
+		case 2:
+			fmt.Println("--- Update student ---")
+
+		case 3:
+			fmt.Println("--- Show list student ---")
+			showStudents(students)
+		case 4:
+			fmt.Println("--- Delete student ---")
+		case 5:
+			fmt.Println("Program exited.")
+			break loop
+		default:
+			fmt.Println("Invalid choice.")
+		}
+		fmt.Println()
+	}
+
 }

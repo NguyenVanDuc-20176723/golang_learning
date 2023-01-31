@@ -11,4 +11,14 @@ func main() {
 	for idx, val := range fruits {
 		fmt.Println(idx, val)
 	}
+
+	// while in go
+	i := 0
+	for i < 5 {
+		fmt.Println(i)
+		if i == 3 {
+			break
+		}
+		i++
+	}
 }
