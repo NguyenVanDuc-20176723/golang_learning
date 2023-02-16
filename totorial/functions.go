@@ -22,13 +22,35 @@ func sum(num int) int {
 	return num + sum(num-1)
 }
 
+func validateName(name string) string {
+	return name
+}
+
+//func main() {
+//	show()
+//	name := myName("duc")
+//	fmt.Println(name)
+//	a, b := multiName("Duc", "nguyen")
+//	fmt.Println(a, b)
+//
+//	fmt.Println(sum(5))
+//
+//}
+
+func adder() func(int) int {
+	sum := 0
+	return func(x int) int {
+		sum += x
+		return sum
+	}
+}
+
 func main() {
-	show()
-	name := myName("duc")
-	fmt.Println(name)
-	a, b := multiName("Duc", "nguyen")
-	fmt.Println(a, b)
-
-	fmt.Println(sum(5))
-
+	pos, neg := adder(), adder()
+	for i := 0; i < 10; i++ {
+		fmt.Println(
+			pos(i),
+			neg(-2*i),
+		)
+	}
 }

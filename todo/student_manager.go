@@ -27,6 +27,34 @@ func fakeData() Student {
 	return student
 }
 
+func inputStudentInfo() Student {
+	student := Student{}
+	fmt.Println("Nhap thong tin sinh vien:")
+	fmt.Println("Nhap ten sinh vien:")
+	fmt.Scanf("%s", &student.name)
+	fmt.Println("Nhap tuoi sinh vien:")
+	fmt.Scanf("%d", &student.age)
+	fmt.Println("Nhap ma so sinh vien:")
+	fmt.Scanf("%s", &student.mssv)
+	return student
+}
+
+func addStudents() Student {
+	student := inputStudentInfo()
+	return student
+}
+
+func remove(students []Student, idx int) []Student {
+	return append(students[:idx], students[idx+1:]...)
+}
+
+func deleteStudent(students []Student) []Student {
+	var idx int
+	fmt.Println("Nhap stt sinh vien can xoa:")
+	fmt.Scanf("%d", &idx)
+	return remove(students, idx)
+}
+
 func showStudents(students []Student) {
 	total := len(students)
 	if total == 0 {
@@ -37,7 +65,7 @@ func showStudents(students []Student) {
 		fmt.Printf("%-3s | %-20s | %-4s | %-8s \n", "No", "Name", "Age", "MSSV")
 		fmt.Println("------------------------------------------------")
 		for idx, student := range students {
-			fmt.Printf("%-3d | %-20s | %-4d | %-8s \n", idx+1, student.name, student.age, student.mssv)
+			fmt.Printf("%-3d | %-20s | %-4d | %-8s \n", idx, student.name, student.age, student.mssv)
 		}
 	}
 
@@ -72,7 +100,9 @@ loop:
 		switch choice {
 		case 1:
 			fmt.Println("--- Add students ---")
-			students = append(students, fakeData())
+			student := addStudents()
+			students = append(students, student)
+			//students = append(students, fakeData())
 		case 2:
 			fmt.Println("--- Update student ---")
 
@@ -81,6 +111,7 @@ loop:
 			showStudents(students)
 		case 4:
 			fmt.Println("--- Delete student ---")
+			students = deleteStudent(students)
 		case 5:
 			fmt.Println("Program exited.")
 			break loop
